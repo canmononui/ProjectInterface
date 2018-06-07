@@ -1,0 +1,141 @@
+/*File : LAB4_1.c
+Description : DC motor drive
+Clock : = 29.4912 MHz
+Hardware: DC motor module
+Compiler: Keil C Compiler*/
+/*Connect IN1 to Port1.0, IN2 to Port1.1 and EN to
+Port1.2*/
+#include<reg52.h>
+sbit IN1 = P1^0;
+sbit IN2 = P1^1;
+sbit EN = P1^2;
+	int	j=0;
+		int	count=1;
+/********** BASIC FUNCTION **********/
+void delay1 (unsigned int count) // mSec Delay
+{ unsigned int i; // Keil CA51 (x2)
+ while (count) {
+ i = 100; while (i>0) i--;
+ count--; }
+}
+/********** MAIN PROGRAM **********/
+void main()
+{
+P1 = 0xff;
+	
+		
+			while(1)
+			{		
+
+			   if(count%8==0)
+						{ for(j=0;j<=10;j++)
+					     	{
+								EN = 1;
+								IN1 = 0;
+								IN2 = 0;			
+								delay1(90);
+								IN2 = 0;
+								IN1 = 1;
+								delay1(10);
+							}
+							count++;
+						}
+				 else if(count%8==1)
+						{
+						 for(j=0;j<=10;j++)
+					     	{
+								EN = 1;
+								IN1 = 0;
+								IN2 = 0;
+								delay1(50);
+								IN2 = 0;
+								IN1 = 1;
+								delay1(50);
+							}
+							count++;
+						}
+				 else if(count%8==2)
+						{
+						 for(j=0;j<=10;j++)
+					     	{
+								EN = 1;
+								IN1 = 0;
+								IN2 = 0;
+								delay1(10);
+								IN2 = 0;
+								IN1 = 1;
+								delay1(90);
+							}
+							count++;
+						}
+						 else if(count%8==3)
+						{
+						 for(j=0;j<=10;j++)
+					     	{
+								EN = 0;
+								IN1 = 0;
+								IN2 = 0;
+								delay1(10);
+								IN2 = 0;
+								IN1 = 0;
+								delay1(90);
+							}
+							count++;
+						}
+						else if(count%8==4)
+						{ for(j=0;j<=10;j++)
+					     	{
+								EN = 1;
+								IN1 = 0;
+								IN2 = 0;
+								delay1(10);
+								IN2 = 1;
+								IN1 = 0;
+								delay1(90);
+							}
+							count++;
+						}
+				 else if(count%8==5)
+						{
+						 for(j=0;j<=10;j++)
+					     	{
+								EN = 1;
+								IN1 = 0;
+								IN2 = 0;
+								delay1(50);
+								IN2 = 1;
+								IN1 = 0;
+								delay1(50);
+							}
+							count++;
+						}
+				 else if(count%8==6)
+						{
+						 for(j=0;j<=10;j++)
+					     	{
+								EN = 1;
+								IN1 = 0;
+								IN2 = 0;
+								delay1(90);
+								IN2 = 1;
+								IN1 = 0;
+								delay1(10);
+							}
+							
+							count++;
+						}
+						 else if(count%8==7)
+						 { for(j=0;j<=10;j++)
+					     	{
+								EN = 0;
+								IN1 = 0;
+								IN2 = 0;
+								delay1(10);
+								IN2 = 0;
+								IN1 = 0;
+								delay1(90);
+							}
+							count++;
+							}
+						}
+}// end of main()

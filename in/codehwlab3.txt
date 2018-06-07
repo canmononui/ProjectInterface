@@ -1,0 +1,46 @@
+/* Filename lab03_3r1.C
+ Description Receive data (Polling)
+ Clock 11.0592 Mhz
+ Compiler Keil CA51 v2.20a
+*/
+#include<reg51.h>
+#include <intrins.h>
+#include <absacc.h>
+#define SEG7 P0
+#define DIGIT P1
+char rec_data[11];
+unsigned int bytecounter,i; //Data counter
+sbit strobe=P3^2;
+/*******************************************/
+void dusec (unsigned int count) { // mSec Delay
+unsigned int j;
+ while (count) {
+ j = 10; while (j>0) j--;
+ count--;
+ }
+}
+/*******************************************/
+void main()
+{
+bytecounter=0;
+P2=0xff;
+while(1)
+{
+if(strobe==0)// Wait until P3.2 = 0
+{
+if (bytecounter<=10)
+{
+rec_data[bytecounter] = P2;
+//receive the data
+L1: if (strobe==0){goto L1;} // Wait for sender to finish sending old value
+bytecounter++; // Next data address to be stored
+}
+}//end if
+for(i=0;i<=10;i++)
+{
+SEG7 = rec_data[i];
+DIGIT = i;
+dusec(100);
+}
+}// end while
+}// end of main()

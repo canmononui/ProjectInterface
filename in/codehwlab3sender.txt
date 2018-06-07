@@ -1,0 +1,42 @@
+/* Filename lab03_3s.C
+ Description Send data
+ Clock 11.0592 Mhz
+ Compiler Keil CA51 v2.20a
+*/
+#include<reg51.h>
+#include <intrins.h>
+#include <absacc.h>
+char send_data[]={0x3f,0x06,0x5b,0x4f,0x66,
+0x6d,0x7d,0x07,0x7f,0x6f,0x40};
+unsigned int bytecounter; //Data counter
+sbit strobe=P1^0;
+/********** BASIC FUNCTION **********/
+void delayms(unsigned int count2) 
+{
+TMOD = (TMOD & 0xF0) | 0x01;
+/* Set T/C0 Mode */
+TR0=1;
+while (count2)
+{if (TF0==1)
+{
+TR0=0; /* Stop Timer 0*/
+TF0=0;
+count2--;
+TH0 = 0xD8; /* Load Timer with FFFFH-10000 */
+TL0 = 0xEA;
+TR0 = 1; /* Start Timer 0*/
+}}}
+/*******************************************/
+void main()
+{
+strobe = 1; //set STB to high
+delayms(300); //Wait subroutine
+for(bytecounter=0;bytecounter<=10;bytecounter++)
+{
+strobe = 0; //set STB to low
+P0 = send_data[bytecounter]; //Send the data
+delayms(300); //Wait subroutine
+strobe = 1; //set STB to high
+delayms(300); //Wait subroutine
+}
+}// end of main()

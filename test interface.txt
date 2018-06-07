@@ -1,0 +1,74 @@
+#include<reg51.h>
+#include <intrins.h>
+#include <absacc.h>
+
+char portLED; 
+sbit sw0=P3^0;
+sbit sw1=P3^1;
+sbit sw2=P3^2;
+sbit sw3=P3^3;
+sbit sw4=P3^4;
+sbit sw5=P3^5;
+sbit sw6=P3^6;
+sbit sw7=P3^7;
+void dmsec (unsigned int count)
+{
+	unsigned int i; 
+ 	while (count)
+	{
+ 		i = 230; 
+		while (i>0) 
+			i--; 
+ 		count--;
+	}
+}
+
+void main()
+{
+	P1 = 0x00;	
+	portLED = 0x00; 	
+	while(1) 
+	{
+		if(sw0==0)	
+			{
+			portLED = portLED+1;
+			P1 = portLED;
+			}
+		if(sw1==0)	
+			{	
+			portLED = portLED+2;
+			P1 = portLED;
+			}
+		if(sw2==0)	
+			{	
+			portLED = portLED+3;
+			P1 = portLED;
+			}
+		if(sw3==0)	
+			{	
+			portLED = portLED+4;
+			P1 = portLED;
+			}
+		if(sw4==0)	
+			{	
+			portLED = portLED+5;
+			P1 = portLED;
+			}
+		if(sw5==0)	
+			{	
+			portLED = portLED + 6;
+			P1 = portLED;
+			}
+		if(sw6==0)	
+			{	
+			portLED = portLED + 7;
+			P1 = portLED;
+			}
+		if(sw7==0)	
+			{
+			portLED = portLED + 8;
+			P1 = portLED;
+			}
+		dmsec(50); 	
+	}
+}
